@@ -126,14 +126,30 @@
             font-size: 1.5rem;
             margin: 10px;
         }
+          .heart {
+        position: fixed;
+        top: -10%;
+        transform: translateY(0);
+        animation: falling 10s linear infinite;
+        opacity: 0.5;
+        font-size: 20px;
+        color: var(--pink);
+        z-index: -1;
+    }
+
+    @keyframes falling {
+        to {
+            transform: translateY(105vh);
+        }
+    }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Bii & Quìn</h1>
-            <p>"Chúng ta đã yêu nhau từ cái ngày muỗi chích ấy..."</p>
-        </header>
+<header style="background: url('https://cdn-img.upanhlaylink.com/img/image_202507069b10eae0b6f980d43a1322dbc8967778.jpg') center/cover;">
+    <h1>Bii & Quìn</h1>
+    <p>"Chúng ta đã yêu nhau từ cái ngày muỗi chích ấy..."</p>
+</header>
 
         <div class="love-counter">
             <h2>❤️ Hành trình của chúng ta ❤️</h2>
@@ -249,6 +265,22 @@
         window.onload = function() {
             showMemory('start');
         };
+           function createHearts() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+        heart.style.opacity = Math.random() * 0.5 + 0.3;
+        heart.style.fontSize = Math.random() * 10 + 10 + 'px';
+        document.body.appendChild(heart);
+        
+        setTimeout(() => {
+            heart.remove();
+        }, 10000);
+    }
+
+    setInterval(createHearts, 300);
     </script>
 </body>
 </html>
