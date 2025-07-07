@@ -166,16 +166,16 @@
         0 ngày 0 giờ 0 phút 0 giây
       </div>
     </div>
+<div class="memory-buttons">
+  <button class="memory-btn" onclick="showMemory('start')">Khởi đầu</button>
+  <button class="memory-btn" onclick="showMemory('first-kiss')">Nụ hôn đầu</button>
+  <button class="memory-btn" onclick="showMemory('gifts')">Quà tặng</button>
+  <button class="memory-btn" onclick="showMemory('places')">Nơi đặc biệt</button>
+  <button class="memory-btn" onclick="showMemory('micchan')">Micchan</button>
+  <button class="memory-btn" onclick="showMemory('scent')">Mùi đặc trưng</button>
+  <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
+</div>
 
-    <div class="memory-buttons">
-      <button class="memory-btn" onclick="showMemory('start')">Khởi đầu</button>
-      <button class="memory-btn" onclick="showMemory('first-kiss')">Nụ hôn đầu</button>
-      <button class="memory-btn" onclick="showMemory('gifts')">Quà tặng</button>
-      <button class="memory-btn" onclick="showMemory('places')">Nơi đặc biệt</button>
-      <button class="memory-btn" onclick="showMemory('micchan')">Micchan</button>
-      <button class="memory-btn" onclick="showMemory('scent')">Mùi đặc trưng</button>
-      <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
-    </div>
 <div id="start" class="memory-content">
   <h2>🌟 Khởi đầu đáng nhớ</h2>
   <p><strong>Ngày yêu nhau:</strong> 17/10/2024</p>
@@ -227,6 +227,23 @@
   <p>Vẫn yêu nhau, trải qua nhiều sóng gió nhưng tình yêu này không dễ bị gục ngã.</p>
   <p>Cảm xúc của Bii vẫn đong đầy mỗi ngày. 😘💖</p>
 </div>
+
+<script>
+  function showMemory(id) {
+    document.querySelectorAll('.memory-content').forEach(mem => {
+      mem.style.display = 'none';
+    });
+    const element = document.getElementById(id);
+    if (element) {
+      element.style.display = 'block';
+    }
+    startHearts?.();
+  }
+
+  window.onload = function () {
+    showMemory('start');
+  };
+</script>
 
   </div>
 
