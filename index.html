@@ -215,40 +215,42 @@
     </footer>
 
     <script>
-        // Counter
-        const startDate = new Date("2024-10-17T00:00:00");
+     // Counter
+    const startDate = new Date("2024-10-17T00:00:00");
+    
+    function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
         
-        function updateCounter() {
-            const now = new Date();
-            const diff = now - startDate;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById("loveCounter").innerHTML = 
-                ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây;
-        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        setInterval(updateCounter, 1000);
-        updateCounter();
+        document.getElementById("loveCounter").innerHTML = 
+            `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+    }
 
-        // Memory show/hide
-        function showMemory(id) {
-            // Hide all memories first
-            document.querySelectorAll('.memory-content').forEach(mem => {
-                mem.style.display = 'none';
-            });
-            
-            // Show selected memory
-            document.getElementById(id).style.display = 'block';
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // Memory show/hide
+    function showMemory(id) {
+        // Hide all memories first
+        document.querySelectorAll('.memory-content').forEach(mem => {
+            mem.style.display = 'none';
+        });
+        // Show selected memory
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'block';
         }
+    }
 
-        // Show first memory by default
-        window.onload = function() {
-            showMemory('start');
-        };
+    // Show first memory by default
+    window.onload = function() {
+        showMemory('start');
+    };
     </script>
 </body>
 </html>
