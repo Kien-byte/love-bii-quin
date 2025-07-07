@@ -13,46 +13,28 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: var(--bg);
+            background: url('https://i.postimg.cc/fbWfhZCN/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: var(--brown);
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: -1;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            background: url('https://i.postimg.cc/fbWfhZCN/WIN-20241126-17-30-01-Pro.jpg') center/cover;
-            color: white;
-            position: relative;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            border-radius: 0 0 20px 20px;
-        }
-        header h1 {
-            position: relative;
-            font-size: 3rem;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        header p {
-            position: relative;
-            font-size: 1.2rem;
-            font-style: italic;
         }
         .love-counter {
             background: white;
@@ -126,14 +108,50 @@
             font-size: 1.5rem;
             margin: 10px;
         }
+
+        /* Tim bay */
+        .heart {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: var(--pink);
+            transform: rotate(45deg);
+            animation: float 5s linear infinite;
+            opacity: 0.7;
+            z-index: 999;
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--pink);
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Bii & Quìn</h1>
-            <p>"Chúng ta đã yêu nhau từ cái ngày muỗi chích ấy..."</p>
-        </header>
+        <button class="memory-btn" onclick="startHearts()">💖 Bay tim đi!</button>
 
         <div class="love-counter">
             <h2>❤️ Hành trình của chúng ta ❤️</h2>
@@ -152,16 +170,15 @@
             <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
         </div>
 
-        <!-- Memory Contents -->
         <div id="start" class="memory-content">
             <h2>🌟 Khởi đầu đáng nhớ</h2>
             <p><strong>Ngày yêu nhau:</strong> 17/10/2024</p>
             <p>Ngày mà cả hai đã chính thức bước vào cuộc hành trình tình yêu này. Đánh dấu một bước ngoặt!</p>
-            
             <p><strong>Nơi tỏ tình:</strong> Ghế muỗi chích, công viên</p>
             <p>Nơi "tử thần" vì muỗi nhưng cũng là nơi đầy cảm xúc khi Bii đã nói ra lòng mình. 🦟💬</p>
         </div>
 
+        
         <div id="first-kiss" class="memory-content">
             <h2>💋 Nụ hôn đầu</h2>
             <p>Chính là khoảnh khắc lãng mạn tại công viên, lúc Quìn ở trọ.</p>
@@ -215,44 +232,49 @@
     </footer>
 
     <script>
-     // Counter
-    const startDate = new Date("2024-10-17T00:00:00");
-    
-    function updateCounter() {
-        const now = new Date();
-        const diff = now - startDate;
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        document.getElementById("loveCounter").innerHTML = 
-            `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
-    }
+        // Counter
+        const startDate = new Date("2024-10-17T00:00:00");
 
-    setInterval(updateCounter, 1000);
-    updateCounter();
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
 
-    // Memory show/hide
-    function showMemory(id) {
-        // Hide all memories first
-        document.querySelectorAll('.memory-content').forEach(mem => {
-            mem.style.display = 'none';
-        });
-        // Show selected memory
-        const element = document.getElementById(id);
-        if (element) {
-            element.style.display = 'block';
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("loveCounter").innerHTML = 
+                `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
         }
-    }
+        setInterval(updateCounter, 1000);
+        updateCounter();
 
-    // Show first memory by default
-    window.onload = function() {
-        showMemory('start');
-    };
+        // Show/hide memories
+        function showMemory(id) {
+            document.querySelectorAll('.memory-content').forEach(mem => {
+                mem.style.display = 'none';
+            });
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'block';
+            }
+        }
+        window.onload = function() {
+            showMemory('start');
+        };
+
+        // Tim bay nè cu
+        function startHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.bottom = "0";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
     </script>
 </body>
 </html>
-
-
