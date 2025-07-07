@@ -13,7 +13,7 @@
     }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: url('https://i.postimg.cc/2SMgFhb1/z6695603314980-ca57a3cba2e774fef278d25a62019419.jpg') no-repeat center center fixed;
+      background: url('https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed; /* Nền mặc định */
       background-size: cover;
       color: var(--brown);
       margin: 0;
@@ -28,7 +28,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
       z-index: -1;
     }
     .container {
@@ -37,7 +37,7 @@
       padding: 20px;
     }
     .love-counter, .memory-content {
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.25);
       border-radius: 15px;
       padding: 30px;
       margin: 40px auto;
@@ -77,6 +77,8 @@
     .memory-content {
       display: none;
       animation: fadeIn 0.5s;
+      font-size: 1.15rem; 
+      line-height: 1.6;  
     }
     @keyframes fadeIn {
       from {
@@ -104,60 +106,6 @@
       font-size: 1.5rem;
       margin: 10px;
     }
-    .heart {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background-color: var(--pink);
-      transform: rotate(45deg);
-      animation: float 5s linear;
-      opacity: 0.8;
-      z-index: 9999;
-      pointer-events: none;
-    }
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: var(--pink);
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
-    @keyframes float {
-      0% {
-        transform: translateY(-100px) translateX(0) rotate(0deg);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(50vh) translateX(20px) rotate(30deg);
-      }
-      100% {
-        transform: translateY(100vh) translateX(-20px) rotate(-30deg);
-        opacity: 0;
-      }
-    }
-    .sticker {
-      position: fixed;
-      width: 120px;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.5s ease;
-    }
-    .sticker.show {
-      opacity: 1;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body>
@@ -169,15 +117,17 @@
       </div>
     </div>
     <div class="memory-buttons">
-      <button class="memory-btn" onclick="showMemory('start', 'https://i.postimg.cc/XqWx9PK8/start.png')">Khởi đầu</button>
-      <button class="memory-btn" onclick="showMemory('first-kiss', 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg')">Nụ hôn đầu</button>
-      <button class="memory-btn" onclick="showMemory('gifts', 'https://i.postimg.cc/wTThFrLr/8379c640-a8dc-4a28-b3c5-4ce3571938e1.jpg')">Quà tặng</button>
-      <button class="memory-btn" onclick="showMemory('places', 'https://i.postimg.cc/fyMYG2FJ/33db190b-ffb3-4357-86f7-c54b6bee1224.jpg')">Nơi đặc biệt</button>
-      <button class="memory-btn" onclick="showMemory('micchan', 'https://i.postimg.cc/Bnj2f1hc/aeb64a98-01e8-401e-9ae2-26aa07029764.jpg')">Micchan</button>
-      <button class="memory-btn" onclick="showMemory('scent', 'https://i.postimg.cc/Bnj2f1hc/aeb64a98-01e8-401e-9ae2-26aa07029764.jpg')">Mùi đặc trưng</button>
-      <button class="memory-btn" onclick="showMemory('feelings', 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg')">Tình cảm hiện tại</button>
+      <!-- Gắn link ảnh nền riêng từng nút tại đây -->
+      <button class="memory-btn" onclick="changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg')">Khởi đầu</button>
+      <button class="memory-btn" onclick="changeMemory('first-kiss', 'https://i.postimg.cc/XNgffWGF/998694b2-ed9f-4564-85ce-fd0147bc44a7.jpg')">Nụ hôn đầu</button>
+      <button class="memory-btn" onclick="changeMemory('gifts', 'https://i.postimg.cc/wTThFrLr/8379c640-a8dc-4a28-b3c5-4ce3571938e1.jpg')">Quà tặng</button>
+      <button class="memory-btn" onclick="changeMemory('places', 'https://i.postimg.cc/fyMYG2FJ/33db190b-ffb3-4357-86f7-c54b6bee1224.jpg')">Nơi đặc biệt</button>
+      <button class="memory-btn" onclick="changeMemory('micchan', 'https://i.postimg.cc/Bnj2f1hc/aeb64a98-01e8-401e-9ae2-26aa07029764.jpg')">Micchan</button>
+      <button class="memory-btn" onclick="changeMemory('scent', 'https://i.postimg.cc/xTW5kGF8/WIN-20241114-15-43-34-Pro.jpg')">Mùi đặc trưng</button>
+      <button class="memory-btn" onclick="changeMemory('feelings', 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg')">Tình cảm hiện tại</button>
     </div>
-    <div id="start" class="memory-content">
+
+     <div id="start" class="memory-content">
       <h2>🌟 Khởi đầu đáng nhớ</h2>
       <p><strong>Ngày yêu nhau:</strong> 17/10/2024</p>
       <p>Ngày Quìn bảo bii về tỏ tình sẽ đồng ý nhưng rồi lúc chuẩn bị nói ra quìn lại muốn chạy dìa kkkk</p>
@@ -228,11 +178,14 @@
     </div>
   </div>
   <img id="sticker" class="sticker" src="" alt="Sticker" />
+  </div>
+
   <footer>
     <div class="cat-paw">🐾</div>
     <p>Được tạo với tất cả tình yêu dành cho Bii & Quìn</p>
     <p><em>- Micchan phê duyệt -</em></p>
   </footer>
+
   <script>
     const startDate = new Date("2024-10-17T00:00:00");
     function updateCounter() {
@@ -246,31 +199,16 @@
     }
     setInterval(updateCounter, 1000);
     updateCounter();
-    function showMemory(id, stickerUrl) {
+
+    function changeMemory(id, bgUrl) {
       document.querySelectorAll('.memory-content').forEach(mem => mem.style.display = 'none');
-      const element = document.getElementById(id);
-      if (element) element.style.display = 'block';
-      if (stickerUrl) {
-        const sticker = document.getElementById("sticker");
-        sticker.src = stickerUrl;
-        sticker.classList.add("show");
-        setTimeout(() => sticker.classList.remove("show"), 1000);
-      }
-      startHearts();
+      const mem = document.getElementById(id);
+      if (mem) mem.style.display = 'block';
+      document.body.style.backgroundImage = `url('${bgUrl}')`;
     }
-    function startHearts() {
-      for (let i = 0; i < 40; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "-30px";
-        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-      }
-    }
+
     window.onload = function () {
-      showMemory('start', 'https://i.postimg.cc/XqWx9PK8/start.png');
+      changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg');
     };
   </script>
 </body>
