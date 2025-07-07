@@ -28,7 +28,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.25);
       z-index: -1;
     }
     .container {
@@ -171,9 +171,7 @@
   <div class="container">
     <div class="love-counter">
       <h2>❤️ Hành trình của chúng ta ❤️</h2>
-      <div class="counter-display" id="loveCounter">
-        0 ngày 0 giờ 0 phút 0 giây
-      </div>
+      <div class="counter-display" id="loveCounter">0 ngày 0 giờ 0 phút 0 giây</div>
     </div>
     <div class="memory-buttons">
       <button class="memory-btn" onclick="showMemory('start')">Khởi đầu</button>
@@ -185,10 +183,10 @@
       <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
     </div>
     <div id="memoryDisplay"></div>
-    <img id="sticker1" class="sticker" style="top: 30%; left: 20%;">
-    <img id="sticker2" class="sticker" style="top: 30%; right: 20%;">
-    <img id="sticker3" class="sticker" style="bottom: 30%; left: 20%;">
-    <img id="sticker4" class="sticker" style="bottom: 30%; right: 20%;">
+    <img id="sticker1" class="sticker" style="top: 25%; left: 30%;">
+    <img id="sticker2" class="sticker" style="top: 25%; right: 30%;">
+    <img id="sticker3" class="sticker" style="bottom: 25%; left: 30%;">
+    <img id="sticker4" class="sticker" style="bottom: 25%; right: 30%;">
   </div>
   <footer>
     <div class="cat-paw">🐾</div>
@@ -211,31 +209,31 @@
 
     const memoryData = {
       "start": {
-        content: `<h2>🌟 Khởi đầu đáng nhớ</h2><p>Ngày yêu nhau: 17/10/2024</p><p>Ngày Quìn bảo bii về tỏ tình sẽ đồng ý nhưng rồi lúc chuẩn bị nói ra quìn lại muốn chạy dìa kkkk</p><p>Ngày mà bii tủn với Quìn đã chính thức bước vào cuộc hành trình này.</p><p><strong>Nơi tỏ tình:</strong> Ghế muỗi chích, công viên</p>`,
+        content: <h2>🌟 Khởi đầu đáng nhớ</h2><p>Ngày yêu nhau: 17/10/2024</p><p>Ngày Quìn bảo bii về tỏ tình sẽ đồng ý nhưng rồi lúc chuẩn bị nói ra quìn lại muốn chạy dìa kkkk</p><p>Ngày mà bii tủn với Quìn đã chính thức bước vào cuộc hành trình này.</p><p><strong>Nơi tỏ tình:</strong> Ghế muỗi chích, công viên</p>,
         bg: 'https://i.postimg.cc/fyMYG2FJ/33db190b-ffb3-4357-86f7-c54b6bee1224.jpg'
       },
       "first-kiss": {
-        content: `<h2>💋 Nụ hôn đầu</h2><p>Cảm giác như thời gian ngừng lại, chỉ còn hai cốt kkk</p><p>Lần đầu "trao nhau" tại Corgi Homestay. Cảm ơn Quìn, vì đã chọn bi, tin tưởng và trao cho bi điều tuyệt vời ấy.</p>`,
+        content: <h2>💋 Nụ hôn đầu</h2><p>Cảm giác như thời gian ngừng lại, chỉ còn hai cốt kkk</p><p>Lần đầu "trao nhau" tại Corgi Homestay. Cảm ơn Quìn, vì đã chọn bi, tin tưởng và trao cho bi điều tuyệt vời ấy.</p>,
         bg: 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg'
       },
       "gifts": {
-        content: `<h2>🎁 Quà tặng</h2><ul><li>Khăn len đan tay</li><li>Mũ len đan tay</li><li>Áo thun</li><li>Cốc nước</li></ul>`,
+        content: <h2>🎁 Quà tặng</h2><ul><li>Khăn len đan tay</li><li>Mũ len đan tay</li><li>Áo thun</li><li>Cốc nước</li></ul>,
         bg: 'https://i.postimg.cc/wTThFrLr/8379c640-a8dc-4a28-b3c5-4ce3571938e1.jpg'
       },
       "places": {
-        content: `<h2>🏡 Nơi đặc biệt</h2><p>Chốn Homestay - nơi hai mình có 1 đêm sinh nhật tuyệt vời.</p>`,
+        content: <h2>🏡 Nơi đặc biệt</h2><p>Chốn Homestay - nơi hai mình có 1 đêm sinh nhật tuyệt vời.</p>,
         bg: 'https://i.postimg.cc/fyMYG2FJ/33db190b-ffb3-4357-86f7-c54b6bee1224.jpg'
       },
       "micchan": {
-        content: `<h2>😻 Micchan</h2><p>Chắc bi mới gặp ẻm có 1 lần. Hình như đây là bé quìn lấy về lúc mình ra biển nhỉ</p>`,
+        content: <h2>😻 Micchan</h2><p>Chắc bi mới gặp ẻm có 1 lần. Hình như đây là bé quìn lấy về lúc mình ra biển nhỉ</p>,
         bg: 'https://i.postimg.cc/Bnj2f1hc/aeb64a98-01e8-401e-9ae2-26aa07029764.jpg'
       },
       "scent": {
-        content: `<h2>👃 Mùi đặc trưng</h2><p>Mùi sữa béo – đúng là cái mùi khiến Bii chẳng thể quên mỗi khi nghĩ đến Quìn.</p>`,
+        content: <h2>👃 Mùi đặc trưng</h2><p>Mùi sữa béo – đúng là cái mùi khiến Bii chẳng thể quên mỗi khi nghĩ đến Quìn.</p>,
         bg: 'https://i.postimg.cc/Bnj2f1hc/aeb64a98-01e8-401e-9ae2-26aa07029764.jpg'
       },
       "feelings": {
-        content: `<h2>💞 Tình cảm hiện tại</h2><p>Chuyện của mình lên xuống, nhưng bi vui vì bây giờ bi với quìn vẫn chọn tiếp tục.</p><p>Quìn tha thứ cho bi nhiều điều, bii củm ơn Quìn.💖💖</p>`,
+        content: <h2>💞 Tình cảm hiện tại</h2><p>Chuyện của mình lên xuống, nhưng bi vui vì bây giờ bi với quìn vẫn chọn tiếp tục.</p><p>Quìn tha thứ cho bi nhiều điều, bii củm ơn Quìn.💖💖</p>,
         bg: 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg'
       }
     };
@@ -249,6 +247,19 @@
         const sticker = document.getElementById(`sticker${i}`);
         sticker.src = memory.bg;
         sticker.classList.add('show');
+      }
+      startHearts();
+    }
+
+    function startHearts() {
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-30px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
       }
     }
   </script>
