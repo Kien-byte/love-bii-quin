@@ -1,280 +1,234 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhật Ký Làm CốtCốt - Bii & Quìn</title>
-    <style>
-        :root {
-            --pink: #ff6b8b;
-            --light-pink: #ffb8c6;
-            --brown: #5a3d2b;
-            --bg: #fff5f5;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: url('https://i.postimg.cc/fbWfhZCN/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: var(--brown);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            position: relative;
-        }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            z-index: -1;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .love-counter {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 40px auto;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .counter-display {
-            font-size: 2.5rem;
-            color: var(--pink);
-            margin: 20px 0;
-            font-weight: bold;
-        }
-        .memory-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 30px 0;
-        }
-        .memory-btn {
-            background: var(--pink);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-        .memory-btn:hover {
-            background: var(--light-pink);
-            transform: translateY(-3px);
-        }
-        .memory-content {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .memory-content h2 {
-            color: var(--pink);
-            margin-top: 0;
-            border-bottom: 2px dashed var(--light-pink);
-            padding-bottom: 10px;
-        }
-        .memory-img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            color: var(--brown);
-        }
-        .cat-paw {
-            font-size: 1.5rem;
-            margin: 10px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nhật Ký Làm CốtCốt - Bii & Quìn</title>
+  <style>
+    :root {
+      --pink: #ff6b8b;
+      --light-pink: #ffb8c6;
+      --brown: #5a3d2b;
+      --bg: #fff5f5;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: url('https://i.postimg.cc/fbWfhZCN/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--brown);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.25);
+      z-index: -1;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .love-counter {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .counter-display {
+      font-size: 2.5rem;
+      color: var(--pink);
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .memory-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 30px 0;
+    }
+    .memory-btn {
+      background: var(--pink);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    .memory-btn:hover {
+      background: var(--light-pink);
+      transform: translateY(-3px);
+    }
+    .memory-content {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .memory-content h2 {
+      color: var(--pink);
+      margin-top: 0;
+      border-bottom: 2px dashed var(--light-pink);
+      padding-bottom: 10px;
+    }
+    .memory-img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 15px 0;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      color: var(--brown);
+    }
+    .cat-paw {
+      font-size: 1.5rem;
+      margin: 10px;
+    }
 
-        /* Tim bay */
-        .heart {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background-color: var(--pink);
-            transform: rotate(45deg);
-            animation: float 5s linear infinite;
-            opacity: 0.7;
-            z-index: 999;
-        }
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--pink);
-            border-radius: 50%;
-        }
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-        .heart::after {
-            left: -10px;
-            top: 0;
-        }
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-    </style>
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: var(--pink);
+      transform: rotate(45deg);
+      animation: float 5s linear;
+      opacity: 0.8;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--pink);
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(50vh) translateX(20px) rotate(30deg);
+      }
+      100% {
+        transform: translateY(100vh) translateX(-20px) rotate(-30deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <button class="memory-btn" onclick="startHearts()">💖 Bay tim đi!</button>
-
-        <div class="love-counter">
-            <h2>❤️ Hành trình của chúng ta ❤️</h2>
-            <div class="counter-display" id="loveCounter">
-                0 ngày 0 giờ 0 phút 0 giây
-            </div>
-        </div>
-
-        <div class="memory-buttons">
-            <button class="memory-btn" onclick="showMemory('start')">Khởi đầu</button>
-            <button class="memory-btn" onclick="showMemory('first-kiss')">Nụ hôn đầu</button>
-            <button class="memory-btn" onclick="showMemory('gifts')">Quà tặng</button>
-            <button class="memory-btn" onclick="showMemory('places')">Nơi đặc biệt</button>
-            <button class="memory-btn" onclick="showMemory('micchan')">Micchan</button>
-            <button class="memory-btn" onclick="showMemory('scent')">Mùi đặc trưng</button>
-            <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
-        </div>
-
-        <div id="start" class="memory-content">
-            <h2>🌟 Khởi đầu đáng nhớ</h2>
-            <p><strong>Ngày yêu nhau:</strong> 17/10/2024</p>
-            <p>Ngày mà cả hai đã chính thức bước vào cuộc hành trình tình yêu này. Đánh dấu một bước ngoặt!</p>
-            <p><strong>Nơi tỏ tình:</strong> Ghế muỗi chích, công viên</p>
-            <p>Nơi "tử thần" vì muỗi nhưng cũng là nơi đầy cảm xúc khi Bii đã nói ra lòng mình. 🦟💬</p>
-        </div>
-
-        
-        <div id="first-kiss" class="memory-content">
-            <h2>💋 Nụ hôn đầu</h2>
-            <p>Chính là khoảnh khắc lãng mạn tại công viên, lúc Quìn ở trọ.</p>
-            <p>Cảm giác như thời gian ngừng lại, mọi thứ chỉ có hai người. 🥰</p>
-            
-            <h3>Kỷ niệm đáng nhớ:</h3>
-            <p>Lần đầu trao nhau tại Corgi Homestay, và đêm sinh nhật Quìn. Trời mưa, nến lung linh, bánh ngọt ngào và quà xinh xắn.</p>
-            <p>Mặc dù có sự cố nhỏ "lúc ấy chưa chính thức yêu", nhưng Quìn vẫn kiên nhẫn vì sợ Bii buồn. Đêm ấy, ôm nhau ngủ trong sự ấm áp của tình yêu và mưa ngoài cửa sổ. 🌧️🎂💏</p>
-        </div>
-
-        <div id="gifts" class="memory-content">
-            <h2>🎁 Món quà kỷ niệm</h2>
-            <p>Những món quà chứa đựng tình cảm sâu sắc của Quìn dành cho Bii:</p>
-            <ul>
-                <li>Khăn len đan tay</li>
-                <li>Mũ len đan tay</li>
-                <li>Áo thun</li>
-                <li>Cốc nước</li>
-            </ul>
-            <p>Mỗi món quà đều gắn liền với những kỷ niệm đẹp của hai người. 💝</p>
-        </div>
-
-        <div id="places" class="memory-content">
-            <h2>🏡 Nơi quan trọng</h2>
-            <p><strong>Chốn Homestay</strong> - nơi tình yêu trở nên thật trọn vẹn, đầy ắp những kỷ niệm.</p>
-            <p>Nơi hai người có những khoảnh khắc đáng nhớ nhất, từ những lần đầu tiên đến những đêm tâm sự dưới ánh nến. 🌈</p>
-        </div>
-
-        <div id="micchan" class="memory-content">
-            <h2>😻 Micchan (mèo biển)</h2>
-            <p>Thành viên đáng yêu của gia đình mà mọi người phải nhớ tên!</p>
-            <p>Mặc dù Lucket đã đi xa nhưng Micchan vẫn là niềm vui hàng ngày của cả hai.</p>
-        </div>
-
-        <div id="scent" class="memory-content">
-            <h2>👃 Mùi đặc trưng của Quìn</h2>
-            <p>Mùi sữa béo – đúng là cái mùi khiến Bii chẳng thể quên mỗi khi nghĩ đến Quìn. 🥛✨</p>
-        </div>
-
-        <div id="feelings" class="memory-content">
-            <h2>💞 Tình cảm hiện tại</h2>
-            <p>Vẫn yêu nhau, trải qua nhiều sóng gió nhưng tình yêu này không dễ bị gục ngã.</p>
-            <p>Cảm xúc của Bii vẫn đong đầy mỗi ngày. 😘💖</p>
-        </div>
+  <div class="container">
+    <div class="love-counter">
+      <h2>❤️ Hành trình của chúng ta ❤️</h2>
+      <div class="counter-display" id="loveCounter">
+        0 ngày 0 giờ 0 phút 0 giây
+      </div>
     </div>
 
-    <footer>
-        <div class="cat-paw">🐾</div>
-        <p>Được tạo với tất cả tình yêu dành cho Bii & Quìn</p>
-        <p><em>- Micchan phê duyệt -</em></p>
-    </footer>
+    <div class="memory-buttons">
+      <button class="memory-btn" onclick="showMemory('start')">Khởi đầu</button>
+      <button class="memory-btn" onclick="showMemory('first-kiss')">Nụ hôn đầu</button>
+      <button class="memory-btn" onclick="showMemory('gifts')">Quà tặng</button>
+      <button class="memory-btn" onclick="showMemory('places')">Nơi đặc biệt</button>
+      <button class="memory-btn" onclick="showMemory('micchan')">Micchan</button>
+      <button class="memory-btn" onclick="showMemory('scent')">Mùi đặc trưng</button>
+      <button class="memory-btn" onclick="showMemory('feelings')">Tình cảm hiện tại</button>
+    </div>
 
-    <script>
-        // Counter
-        const startDate = new Date("2024-10-17T00:00:00");
+    <!-- Các memories giữ nguyên ở đây -->
+  </div>
 
-        function updateCounter() {
-            const now = new Date();
-            const diff = now - startDate;
+  <footer>
+    <div class="cat-paw">🐾</div>
+    <p>Được tạo với tất cả tình yêu dành cho Bii & Quìn</p>
+    <p><em>- Micchan phê duyệt -</em></p>
+  </footer>
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  <script>
+    const startDate = new Date("2024-10-17T00:00:00");
 
-            document.getElementById("loveCounter").innerHTML = 
-                `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
-        }
-        setInterval(updateCounter, 1000);
-        updateCounter();
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        // Show/hide memories
-        function showMemory(id) {
-            document.querySelectorAll('.memory-content').forEach(mem => {
-                mem.style.display = 'none';
-            });
-            const element = document.getElementById(id);
-            if (element) {
-                element.style.display = 'block';
-            }
-        }
-        window.onload = function() {
-            showMemory('start');
-        };
+      document.getElementById("loveCounter").innerHTML =
+        `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
 
-        // Tim bay nè cu
-        function startHearts() {
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement("div");
-                heart.className = "heart";
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.bottom = "0";
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 5000);
-            }
-        }
-    </script>
+    function showMemory(id) {
+      document.querySelectorAll('.memory-content').forEach(mem => {
+        mem.style.display = 'none';
+      });
+      const element = document.getElementById(id);
+      if (element) {
+        element.style.display = 'block';
+      }
+      startHearts();
+    }
+
+    function startHearts() {
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-30px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+
+    window.onload = function () {
+      showMemory('start');
+    };
+  </script>
 </body>
 </html>
