@@ -316,27 +316,42 @@
     }
     
     /* Nút nhạc */
-    .music-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-    }
-    
-    .music-btn {
-      background: var(--pink);
-      color: white;
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
+  .music-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.music-btn {
+  background: var(--pink);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
   </style>
 </head>
 <body>
+  <!-- Nút nhạc YouTube -->
+<div class="music-controls">
+  <button class="music-btn" id="musicBtn">🎵</button>
+</div>
+
+<!-- Iframe phát nhạc YouTube ẩn -->
+<iframe
+  id="ytPlayer"
+  width="0"
+  height="0"
+  src=""
+  frameborder="0"
+  allow="autoplay"
+  style="display: none;"
+></iframe>
   <!-- Floating hearts background -->
   <div id="floating-hearts"></div>
   
@@ -618,12 +633,24 @@
           btn.style.transform = 'scale(1)';
         });
       });
-      
-      // Tự động bật nhạc (có thể bỏ nếu muốn)
-      setTimeout(() => {
-        document.getElementById('bgMusic').play().catch(e => console.log('Auto-play prevented'));
-      }, 1000);
+
     };
+    let isPlaying = false;
+const ytPlayer = document.getElementById('ytPlayer');
+const musicButton = document.getElementById('musicBtn');
+
+musicButton.addEventListener('click', () => {
+  if (!isPlaying) {
+    ytPlayer.src =
+      'https://www.youtube.com/embed/dcWTrQ48mms?autoplay=1&loop=1&playlist=dcWTrQ48mms';
+    isPlaying = true;
+    musicButton.textContent = '🔇';
+  } else {
+    ytPlayer.src = '';
+    isPlaying = false;
+    musicButton.textContent = '🎵';
+  }
+});
   </script>
 </body>
 </html>
