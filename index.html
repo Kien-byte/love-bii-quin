@@ -341,17 +341,8 @@
 <div class="music-controls">
   <button class="music-btn" id="musicBtn">🎵</button>
 </div>
+<div id="ytPlayer" style="display: none;"></div>
 
-<!-- Iframe phát nhạc YouTube ẩn -->
-<iframe
-  id="ytPlayer"
-  width="1"
-  height="1"
-  src=""
-  frameborder="0"
-  allow="autoplay"
-  style="visibility: hidden; position: absolute; left: -9999px;"
-></iframe>
 
   <!-- Floating hearts background -->
   <div id="floating-hearts"></div>
@@ -646,5 +637,23 @@ musicButton.addEventListener('click', () => {
     };
    
   </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+  let player;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('ytPlayer', {
+      height: '0',
+      width: '0',
+      videoId: 'dcWTrQ48mms',
+      playerVars: {
+        autoplay: 1,
+        loop: 1,
+        playlist: 'dcWTrQ48mms',
+        mute: 1
+      }
+    });
+  }
+</script>
 </body>
 </html>
