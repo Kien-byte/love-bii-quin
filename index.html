@@ -679,6 +679,14 @@ musicButton.addEventListener('click', () => {
     });
   }
 </script>
-
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(() => {
+      console.log("Service Worker đăng ký thành công");
+    }).catch(err => {
+      console.error("Đăng ký Service Worker thất bại:", err);
+    });
+  }
+</script>
 </body>
 </html>
