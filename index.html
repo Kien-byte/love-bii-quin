@@ -359,12 +359,6 @@
   <!-- Flower petals -->
   <div id="flower-petals"></div>
   
-  <!-- Music controls -->
-  <div class="music-controls">
-    <button class="music-btn" onclick="document.getElementById('bgMusic').play()">🎵</button>
-    <button class="music-btn" onclick="document.getElementById('bgMusic').pause()">🔇</button>
-  </div>
-  
   <!-- Love letter popup -->
   <div id="loveLetter">
     <textarea placeholder="Viết điều gì đó ngọt ngào..."></textarea>
@@ -623,19 +617,7 @@
       changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg');
       createPetals();
       createFloatingHearts();
-      
-      // Thêm hiệu ứng khi chạm vào nút trên mobile
-      document.querySelectorAll('.memory-btn').forEach(btn => {
-        btn.addEventListener('touchstart', () => {
-          btn.style.transform = 'scale(0.96)';
-        });
-        btn.addEventListener('touchend', () => {
-          btn.style.transform = 'scale(1)';
-        });
-      });
-
-    };
-    let isPlaying = false;
+       let isPlaying = false;
 const ytPlayer = document.getElementById('ytPlayer');
 const musicButton = document.getElementById('musicBtn');
 
@@ -650,6 +632,19 @@ musicButton.addEventListener('click', () => {
     musicButton.textContent = '🎵';
   }
 });
+      
+      // Thêm hiệu ứng khi chạm vào nút trên mobile
+      document.querySelectorAll('.memory-btn').forEach(btn => {
+        btn.addEventListener('touchstart', () => {
+          btn.style.transform = 'scale(0.96)';
+        });
+        btn.addEventListener('touchend', () => {
+          btn.style.transform = 'scale(1)';
+        });
+      });
+
+    };
+   
   </script>
 </body>
 </html>
