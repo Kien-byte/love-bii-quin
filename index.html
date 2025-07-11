@@ -642,23 +642,42 @@ musicButton.addEventListener('click', () => {
     };
    
   </script>
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
+ <script src="https://www.youtube.com/iframe_api"></script>
+<script>
   let player;
-
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytPlayer', {
       height: '0',
       width: '0',
       videoId: 'dcWTrQ48mms',
       playerVars: {
-        autoplay: 1,
+        autoplay: 0,
         loop: 1,
         playlist: 'dcWTrQ48mms',
-        mute: 0
+        mute: 1
+      },
+      events: {
+        onReady: onPlayerReady
       }
     });
   }
+
+  function onPlayerReady(event) {
+    const btn = document.getElementById('musicBtn');
+    let isPlaying = false;
+    btn.addEventListener('click', () => {
+      if (!isPlaying) {
+        player.unMute();
+        player.playVideo();
+        btn.textContent = '🔇';
+      } else {
+        player.pauseVideo();
+        btn.textContent = '🎵';
+      }
+      isPlaying = !isPlaying;
+    });
+  }
 </script>
+
 </body>
 </html>
