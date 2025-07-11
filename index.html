@@ -6,20 +6,22 @@
   <title>Nhật Ký Làm Cốt - Bii & Quìn</title>
   <style>
     :root {
-      --pink: #f87fde;
+      --pink: #ff6b9d;
       --light-pink: #ffb8c6;
       --brown: #5a3d2b;
       --bg: #fff5f5;
+      --glass: rgba(255, 255, 255, 0.6);
     }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: url('https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed; /* Nền mặc định */
+      background: url('https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg') no-repeat center center fixed;
       background-size: cover;
       color: var(--brown);
       margin: 0;
       padding: 0;
       min-height: 100vh;
       position: relative;
+      overflow-x: hidden;
     }
     body::before {
       content: "";
@@ -28,7 +30,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       z-index: -1;
     }
     .container {
@@ -37,53 +39,83 @@
       padding: 20px;
     }
     .love-counter, .memory-content {
-      background: rgba(255, 255, 255, 0.35);
+      background: var(--glass);
       border-radius: 15px;
       padding: 30px;
       margin: 40px auto;
       max-width: 600px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(255, 105, 157, 0.2);
       text-align: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .love-counter:hover, .memory-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(255, 105, 157, 0.3);
     }
     .counter-display {
       font-size: 2.5rem;
       color: var(--pink);
       margin: 20px 0;
       font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .counter-unit {
+      font-size: 1rem;
+      color: var(--brown);
+      display: block;
+      margin-top: 5px;
     }
     .memory-buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
       margin: 30px 0;
     }
     .memory-btn {
-      background: var(--pink);
+      background: linear-gradient(135deg, var(--pink), #ff8fab);
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 25px;
       border-radius: 50px;
       cursor: pointer;
       font-size: 1rem;
-      transition: all 0.3s;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(255, 105, 157, 0.3);
+      position: relative;
+      overflow: hidden;
     }
     .memory-btn:hover {
-      background: var(--light-pink);
-      transform: translateY(-3px);
+      background: linear-gradient(135deg, #ff8fab, var(--pink));
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 105, 157, 0.4);
+    }
+    .memory-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: 0.5s;
+    }
+    .memory-btn:hover::after {
+      transform: translateX(100%);
     }
     .memory-content {
       display: none;
-      animation: fadeIn 0.5s;
+      animation: fadeIn 0.6s;
       font-size: 1.22rem; 
-      line-height: 1.6;  
+      line-height: 1.6;
     }
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(15px);
       }
       to {
         opacity: 1;
@@ -95,6 +127,10 @@
       margin-top: 0;
       border-bottom: 2px dashed var(--light-pink);
       padding-bottom: 10px;
+      transition: all 0.3s;
+    }
+    .memory-content:hover h2 {
+      letter-spacing: 1px;
     }
     footer {
       text-align: center;
@@ -103,28 +139,95 @@
       color: var(--brown);
     }
     footer p {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--brown);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-}
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--brown);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
     .cat-paw {
       font-size: 1.5rem;
       margin: 10px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Hiệu ứng hoa rơi */
+    .petal {
+      position: fixed;
+      background-size: contain;
+      z-index: 999;
+      pointer-events: none;
+      animation: falling linear infinite;
+      font-size: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    @keyframes falling {
+      0% {
+        transform: translate(0, -10vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(calc(var(--random-x) * 10vw), 100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Heart cursor */
+    body {
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff6b9d' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>"), auto;
+    }
+    
+    /* Floating hearts */
+    .floating-heart {
+      position: absolute;
+      font-size: 1.2rem;
+      color: var(--pink);
+      animation: float 6s ease-in-out infinite;
+      opacity: 0;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Floating hearts background -->
+  <div id="floating-hearts"></div>
+  
+  <!-- Flower petals -->
+  <div id="flower-petals"></div>
+  
   <div class="container">
     <div class="love-counter">
       <h2>❤️ Hành trình của chúng ta ❤️</h2>
-      <div class="counter-display" id="loveCounter">
-        0 ngày 0 giờ 0 phút 0 giây
+      <div class="counter-display">
+        <span id="loveDays">0</span> ngày
+        <div class="counter-unit" id="detailedCounter">0 tháng · 0 tuần · 0 giờ · 0 phút · 0 giây</div>
       </div>
     </div>
     <div class="memory-buttons">
-      <!-- Gắn link ảnh nền riêng từng nút tại đây -->
       <button class="memory-btn" onclick="changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg')">Khởi đầu</button>
       <button class="memory-btn" onclick="changeMemory('first-kiss', 'https://i.postimg.cc/XNgffWGF/998694b2-ed9f-4564-85ce-fd0147bc44a7.jpg')">Nụ hôn đầu</button>
       <button class="memory-btn" onclick="changeMemory('gifts', 'https://i.postimg.cc/wTThFrLr/8379c640-a8dc-4a28-b3c5-4ce3571938e1.jpg')">Quà tặng</button>
@@ -133,7 +236,7 @@
       <button class="memory-btn" onclick="changeMemory('feelings', 'https://i.postimg.cc/WzS0TmLS/5078b8d2-543d-4b17-aa39-28e2d3f1ddb3.jpg')">Tình cảm hiện tại</button>
     </div>
 
-     <div id="start" class="memory-content">
+    <div id="start" class="memory-content">
       <h2>🌟 Khởi đầu đáng nhớ</h2>
       <p><strong>Ngày yêu nhau:</strong> 17/10/2024</p>
       <p>Ngày Quìn bảo bii về tỏ tình sẽ đồng ý nhưng rồi lúc chuẩn bị nói ra quìn lại muốn chạy dìa kkkk</p>
@@ -178,8 +281,6 @@
       <p>Cảm xúc của Bii vẫn đong đầy mỗi ngày hẹ hẹ. 😘💖</p>
     </div>
   </div>
-  <img id="sticker" class="sticker" src="" alt="Sticker" />
-  </div>
 
   <footer>
     <div class="cat-paw">🐾</div>
@@ -188,28 +289,124 @@
   </footer>
 
   <script>
+    // Bộ đếm thời gian chi tiết
     const startDate = new Date("2024-10-17T00:00:00");
+    
     function updateCounter() {
       const now = new Date();
       const diff = now - startDate;
+      
+      // Tính toán các đơn vị thời gian
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const months = Math.floor(days / 30.44);
+      const weeks = Math.floor(days / 7);
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById("loveCounter").innerText = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+      
+      // Hiển thị
+      document.getElementById("loveDays").innerText = days;
+      document.getElementById("detailedCounter").innerText = 
+        `${months} tháng · ${weeks % 4} tuần · ${hours} giờ · ${minutes} phút · ${seconds} giây`;
     }
+    
     setInterval(updateCounter, 1000);
     updateCounter();
 
+    // Chuyển đổi giữa các kỷ niệm
     function changeMemory(id, bgUrl) {
-      document.querySelectorAll('.memory-content').forEach(mem => mem.style.display = 'none');
+      document.querySelectorAll('.memory-content').forEach(mem => {
+        mem.style.display = 'none';
+      });
+      
       const mem = document.getElementById(id);
-      if (mem) mem.style.display = 'block';
+      if (mem) {
+        mem.style.display = 'block';
+        // Hiệu ứng phóng to nhẹ khi chuyển
+        mem.style.animation = 'fadeIn 0.6s';
+      }
+      
+      // Hiệu ứng chuyển background mượt mà
+      document.body.style.transition = 'background-image 0.8s ease-in-out';
       document.body.style.backgroundImage = `url('${bgUrl}')`;
+      
+      // Tạo hiệu ứng heart khi click
+      createClickHearts();
     }
 
-    window.onload = function () {
+    // Hiệu ứng hoa rơi
+    function createPetals() {
+      const petals = ['🌸', '🌹', '💮', '🏵️', '🌺', '🌻', '🌼', '🌷'];
+      const container = document.getElementById('flower-petals');
+      
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const petal = document.createElement('div');
+          petal.className = 'petal';
+          petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+          petal.style.left = Math.random() * 100 + 'vw';
+          petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+          petal.style.setProperty('--random-x', Math.random() * 2 - 1);
+          petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+          petal.style.animationDelay = Math.random() * 5 + 's';
+          container.appendChild(petal);
+        }, i * 300);
+      }
+    }
+    
+    // Hiệu ứng tim nổi
+    function createFloatingHearts() {
+      const container = document.getElementById('floating-hearts');
+      const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🤎', '🖤', '💖', '💗', '💘', '💝'];
+      
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '0';
+        heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        container.appendChild(heart);
+        
+        // Tự động xóa sau khi animation kết thúc
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }, 800);
+    }
+    
+    // Hiệu ứng tim khi click
+    function createClickHearts() {
+      const hearts = ['❤️', '💖', '💗', '💘'];
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = '50%';
+      heart.style.bottom = '20%';
+      heart.style.fontSize = '2rem';
+      heart.style.animationDuration = '3s';
+      document.getElementById('floating-hearts').appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 3000);
+    }
+    
+    // Khởi tạo khi trang load
+    window.onload = function() {
       changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg');
+      createPetals();
+      createFloatingHearts();
+      
+      // Thêm hiệu ứng khi di chuột vào nút
+      document.querySelectorAll('.memory-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          btn.style.transform = 'scale(1.1)';
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'scale(1)';
+        });
+      });
     };
   </script>
 </body>
