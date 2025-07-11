@@ -345,13 +345,14 @@
 <!-- Iframe phát nhạc YouTube ẩn -->
 <iframe
   id="ytPlayer"
-  width="0"
-  height="0"
+  width="1"
+  height="1"
   src=""
   frameborder="0"
   allow="autoplay"
-  style="display: none;"
+  style="visibility: hidden; position: absolute; left: -9999px;"
 ></iframe>
+
   <!-- Floating hearts background -->
   <div id="floating-hearts"></div>
   
@@ -455,8 +456,7 @@
     <p><em>- Micchan phê duyệt -</em></p>
   </footer>
 
-  <!-- Audio -->
- <source src="https://raw.githubusercontent.com/Kien-byte/bi-t-n/main/stephen-sanchez-ft-em-beihold.mp3" type="audio/mpeg">
+
 
 
   <script>
@@ -641,8 +641,7 @@ const musicButton = document.getElementById('musicBtn');
 
 musicButton.addEventListener('click', () => {
   if (!isPlaying) {
-    ytPlayer.src =
-      'https://www.youtube.com/embed/dcWTrQ48mms?autoplay=1&loop=1&playlist=dcWTrQ48mms';
+    ytPlayer.src = 'https://www.youtube.com/embed/dcWTrQ48mms?autoplay=1&loop=1&playlist=dcWTrQ48mms&mute=1';
     isPlaying = true;
     musicButton.textContent = '🔇';
   } else {
