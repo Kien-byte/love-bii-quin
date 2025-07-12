@@ -142,7 +142,12 @@
       text-align: left;
       position: relative;
     }
-    
+    #greeting {
+  font-size: 1.4rem;
+  color: var(--pink);
+  font-weight: bold;
+  margin-bottom: 12px;
+}
     .close-btn {
       position: absolute;
       top: 10px;
@@ -750,7 +755,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     greetingDiv.textContent = currentUser === "bii" ? "Hế lô Bii 🐶" : "Hế lô Quìn 🎀";
 
-    loveCounter.parentNode.insertBefore(greetingDiv, loveCounter);
+  loveCounter.insertBefore(greetingDiv, loveCounter.firstChild);
+
   }
 });
 
