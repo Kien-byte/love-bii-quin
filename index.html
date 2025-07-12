@@ -718,18 +718,35 @@ musicButton.addEventListener('click', () => {
   }
 
   // Auto update PWA when there's new version
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-      reg.onupdatefound = () => {
-        const newWorker = reg.installing;
-        newWorker.onstatechange = () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            const user = localStorage.getItem("user");
-            const hasReloaded = localStorage.getItem("hasReloaded");
-           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-  console.log("⚡ Có bản cập nhật mới! Reloading...");
-  window.location.reload();
+ if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then((registration) => {
+    registration.onupdatefound = () => {
+      const newWorker = registration.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          console.log("⚡ Có bản cập nhật mới! Reloading...");
+          newWorker.postMessage({ action: 'skipWaiting' }); // Cho worker mới nhảy vào luôn
         }
+      });
+    };
+  });
+
+  // Khi worker mới chiếm quyền xong thì reload
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log("🔁 Worker mới chiếm quyền, reload web...");
+    window.location.reload();
+  });
+}
+      }
+    });
+  };
+});
+
+// Khi SW mới đã kích hoạt và chiếm quyền, thì reload trang
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  console.log("🔁 SW đã chiếm quyền, reload trang...");
+  window.location.reload();
+});
           }
         };
       };
