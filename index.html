@@ -697,27 +697,32 @@ musicButton.addEventListener('click', () => {
     <button onclick="setUser('quin')" style="margin: 8px; padding: 10px 20px; background: #ffb6c1; color: white; border: none; border-radius: 8px; cursor: pointer;">Quìn 🎀</button>
   </div>
 </div>
-
 <script>
   window.setUser = function (name) {
     localStorage.setItem("user", name);
     document.getElementById("choose-user").style.display = "none";
-    location.reload();
+    setTimeout(() => {
+      location.reload();
+    }, 200); // Delay nhẹ để đảm bảo reload mượt
   }
 
   const user = localStorage.getItem("user");
-  if (user === "Bii" || user === "uin") {
-    document.getElementById("choose-user").style.display = "none";
+  if (!user) {
+    document.getElementById("choose-user").style.display = "flex";
   }
-    // Auto update PWA when there's new version
+
+  // Auto update PWA when there's new version
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(reg => {
       reg.onupdatefound = () => {
         const newWorker = reg.installing;
         newWorker.onstatechange = () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            console.log("⚡ Có bản cập nhật mới! Reloading...");
-            window.location.reload();
+            const user = localStorage.getItem("user");
+            if (user) {
+              console.log("⚡ Có bản cập nhật mới! Reloading...");
+              window.location.reload();
+            }
           }
         };
       };
