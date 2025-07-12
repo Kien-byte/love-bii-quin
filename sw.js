@@ -3,7 +3,6 @@
 const CACHE_NAME = 'bii-quin-cache-v2';
 const urlsToCache = [
   './',
-  './index.html',
   './manifest.json',
   './icon.png' // ✅ Đúng tên file icon của m
 ];
