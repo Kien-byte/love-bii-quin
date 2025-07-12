@@ -742,23 +742,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentUser = localStorage.getItem("user");
   const loveCounter = document.getElementById("love-counter");
 
-  if (currentUser && loveCounter) {
-    const greetingDiv = document.createElement("div");
-    greetingDiv.id = "greeting";
-    greetingDiv.style.cssText = `
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      color: #d6336c;
-      margin-bottom: 8px;
-    `;
+  if (!loveCounter) return;
 
-    greetingDiv.textContent = currentUser === "bii" ? "Hế lô Bii 🐶" : "Hế lô Quìn 🎀";
+  // Xóa greeting cũ nếu có (tránh lỗi chèn trùng)
+  const oldGreeting = document.getElementById("greeting");
+  if (oldGreeting) oldGreeting.remove();
 
-  loveCounter.insertBefore(greetingDiv, loveCounter.firstChild);
+  const greetingDiv = document.createElement("div");
+  greetingDiv.id = "greeting";
+  greetingDiv.style.cssText = `
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--pink);
+    margin-bottom: 8px;
+  `;
 
+  if (currentUser === "bii") {
+    greetingDiv.textContent = "Hế lô Bii 🐶";
+  } else if (currentUser === "quin") {
+    greetingDiv.textContent = "Hế lô Quìn 🎀";
   }
+
+  // Chèn greeting VÀO TRONG love-counter
+  loveCounter.insertBefore(greetingDiv, loveCounter.firstChild);
 });
+
 
 </script>
 
