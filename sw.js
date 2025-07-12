@@ -1,10 +1,10 @@
-// sw.js
+// sw.js – Service Worker chuẩn chỉnh cho PWA Nhật Ký Bii & Quìn
 const CACHE_NAME = 'bii-quin-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './icon-512.png'
+  './icon.png' // ✅ Đổi thành tên file icon đúng của m
 ];
 
 // Cài đặt service worker và cache các file
@@ -15,10 +15,10 @@ self.addEventListener('install', (e) => {
     })
   );
   console.log('✅ Service Worker: Installed & cached');
-  self.skipWaiting(); // Bắt service worker active luôn không cần reload
+  self.skipWaiting(); // ⚡ Bắt SW active ngay không chờ
 });
 
-// Kích hoạt SW và xóa cache cũ nếu có
+// Kích hoạt SW và dọn cache cũ
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -28,19 +28,15 @@ self.addEventListener('activate', (e) => {
     })
   );
   console.log('⚡ Service Worker: Activated');
+  self.clients.claim(); // ✅ Kích hoạt bản mới ngay lập tức
 });
 
-// Intercept các request và trả file từ cache (nếu có)
+// Trả file từ cache nếu có, fallback về index nếu mất mạng
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
-      // Nếu có file trong cache thì trả về
       if (response) return response;
-      // Nếu không có thì fetch như bình thường
-      return fetch(e.request).catch(() => {
-        // Nếu fetch fail (do mất mạng) thì fallback về index.html
-        return caches.match('./index.html');
-      });
+      return fetch(e.request).catch(() => caches.match('./index.html'));
     })
   );
 });
