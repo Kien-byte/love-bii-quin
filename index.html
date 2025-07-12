@@ -726,11 +726,10 @@ musicButton.addEventListener('click', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             const user = localStorage.getItem("user");
             const hasReloaded = localStorage.getItem("hasReloaded");
-            if (user && !hasReloaded) {
-              console.log("⚡ Có bản cập nhật mới! Reloading...");
-              localStorage.setItem("hasReloaded", "yes");
-              window.location.reload();
-            }
+           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+  console.log("⚡ Có bản cập nhật mới! Reloading...");
+  window.location.reload();
+        }
           }
         };
       };
@@ -739,33 +738,35 @@ musicButton.addEventListener('click', () => {
 
 // Hiển thị lời chào trên đếm ngày yêu (ổn định hơn)
 document.addEventListener("DOMContentLoaded", () => {
-  const currentUser = localStorage.getItem("user");
-  const loveCounter = document.getElementById("love-counter");
+  setTimeout(() => {
+    const currentUser = localStorage.getItem("user");
+    const loveCounter = document.getElementById("love-counter");
 
-  if (!loveCounter) return;
+    if (!loveCounter) return;
 
-  // Xóa greeting cũ nếu có (tránh lỗi chèn trùng)
-  const oldGreeting = document.getElementById("greeting");
-  if (oldGreeting) oldGreeting.remove();
+    // Xóa greeting cũ nếu có (tránh lỗi chèn trùng)
+    const oldGreeting = document.getElementById("greeting");
+    if (oldGreeting) oldGreeting.remove();
 
-  const greetingDiv = document.createElement("div");
-  greetingDiv.id = "greeting";
-  greetingDiv.style.cssText = `
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--pink);
-    margin-bottom: 8px;
-  `;
+    const greetingDiv = document.createElement("div");
+    greetingDiv.id = "greeting";
+    greetingDiv.style.cssText = `
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--pink);
+      margin-bottom: 8px;
+    `;
 
-  if (currentUser === "bii") {
-    greetingDiv.textContent = "Hế lô Bii 🐶";
-  } else if (currentUser === "quin") {
-    greetingDiv.textContent = "Hế lô Quìn 🎀";
-  }
+    if (currentUser === "bii") {
+      greetingDiv.textContent = "Hế lô Bii 🐶";
+    } else if (currentUser === "quin") {
+      greetingDiv.textContent = "Hế lô Quìn 🎀";
+    }
 
-  // Chèn greeting VÀO TRONG love-counter
-  loveCounter.insertBefore(greetingDiv, loveCounter.firstChild);
+    const title = loveCounter.querySelector("h2");
+    loveCounter.insertBefore(greetingDiv, title); // CHÈN TRÊN h2
+  }, 100);
 });
 
 
