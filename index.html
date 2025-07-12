@@ -700,11 +700,7 @@ musicButton.addEventListener('click', () => {
 <script>
   window.setUser = function (name) {
     localStorage.setItem("user", name);
-    localStorage.setItem("version", "v1"); // 🔒 Đánh dấu đã reload 1 lần
     document.getElementById("choose-user").style.display = "none";
-    setTimeout(() => {
-      location.reload();
-    }, 200);
   }
 
   const user = localStorage.getItem("user");
@@ -719,10 +715,9 @@ musicButton.addEventListener('click', () => {
         const newWorker = reg.installing;
         newWorker.onstatechange = () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            const version = localStorage.getItem("version");
-            if (!version) {
+            const user = localStorage.getItem("user");
+            if (user) {
               console.log("⚡ Có bản cập nhật mới! Reloading...");
-              localStorage.setItem("version", "v1");
               window.location.reload();
             }
           }
@@ -731,7 +726,5 @@ musicButton.addEventListener('click', () => {
     });
   }
 </script>
-
-
 </body>
 </html>
