@@ -688,5 +688,42 @@ musicButton.addEventListener('click', () => {
     });
   }
 </script>
+<!-- Locket - Chọn người dùng thôi, chưa có gì khác -->
+<!-- Popup chọn người dùng -->
+<div id="choose-user" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff8f9; display: flex; align-items: center; justify-content: center; z-index: 10000;">
+  <div style="text-align: center;">
+    <p style="font-size: 18px; color: #cc3366;">You là Bii hay Quìn=))</p>
+    <button onclick="setUser('bii')" style="margin: 8px; padding: 10px 20px; background: #ff6b8b; color: white; border: none; border-radius: 8px; cursor: pointer;">Bii 🐶</button>
+    <button onclick="setUser('quin')" style="margin: 8px; padding: 10px 20px; background: #ffb6c1; color: white; border: none; border-radius: 8px; cursor: pointer;">Quìn 🎀</button>
+  </div>
+</div>
+
+<script>
+  window.setUser = function (name) {
+    localStorage.setItem("user", name);
+    document.getElementById("choose-user").style.display = "none";
+    location.reload();
+  }
+
+  const user = localStorage.getItem("user");
+  if (user === "Bii" || user === "uin") {
+    document.getElementById("choose-user").style.display = "none";
+  }
+    // Auto update PWA when there's new version
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      reg.onupdatefound = () => {
+        const newWorker = reg.installing;
+        newWorker.onstatechange = () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            console.log("⚡ Có bản cập nhật mới! Reloading...");
+            window.location.reload();
+          }
+        };
+      };
+    });
+  }
+</script>
+
 </body>
 </html>
