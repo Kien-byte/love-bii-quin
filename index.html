@@ -698,14 +698,17 @@ musicButton.addEventListener('click', () => {
   </div>
 </div>
 <script>
-  window.setUser = function (name) {
-    localStorage.setItem("user", name);
-    document.getElementById("choose-user").style.display = "none";
-  }
-
   const user = localStorage.getItem("user");
   if (!user) {
     document.getElementById("choose-user").style.display = "flex";
+  } else {
+    document.getElementById("choose-user").style.display = "none";
+  }
+
+  window.setUser = function (name) {
+    localStorage.setItem("user", name);
+    localStorage.setItem("hasReloaded", "yes"); // Đánh dấu đã reload
+    document.getElementById("choose-user").style.display = "none";
   }
 
   // Auto update PWA when there's new version
@@ -716,8 +719,10 @@ musicButton.addEventListener('click', () => {
         newWorker.onstatechange = () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             const user = localStorage.getItem("user");
-            if (user) {
+            const hasReloaded = localStorage.getItem("hasReloaded");
+            if (user && !hasReloaded) {
               console.log("⚡ Có bản cập nhật mới! Reloading...");
+              localStorage.setItem("hasReloaded", "yes");
               window.location.reload();
             }
           }
@@ -726,5 +731,6 @@ musicButton.addEventListener('click', () => {
     });
   }
 </script>
+
 </body>
 </html>
