@@ -697,18 +697,24 @@ musicButton.addEventListener('click', () => {
     <button onclick="setUser('quin')" style="margin: 8px; padding: 20px 30px; background: #ff6b8b; color: white; border: none; border-radius: 8px; cursor: pointer;">Quìn 🎀</button>
   </div>
 </div>
+  <div id="greeting" style="text-align: center; font-size: 20px; margin-top: 16px; font-weight: bold; color: #d6336c;"></div>
 <script>
-  const user = localStorage.getItem("user");
+   const user = localStorage.getItem("user");
   if (!user) {
     document.getElementById("choose-user").style.display = "flex";
   } else {
     document.getElementById("choose-user").style.display = "none";
+    // Hiển thị lời chào
+    const greeting = document.getElementById("greeting");
+    if (user === "bii") greeting.textContent = "Hế lô Bii 🐶";
+    else if (user === "quin") greeting.textContent = "Hế lô Quìn 🎀";
   }
 
   window.setUser = function (name) {
     localStorage.setItem("user", name);
     localStorage.setItem("hasReloaded", "yes"); // Đánh dấu đã reload
     document.getElementById("choose-user").style.display = "none";
+    location.reload();
   }
 
   // Auto update PWA when there's new version
