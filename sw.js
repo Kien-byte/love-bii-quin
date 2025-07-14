@@ -1,6 +1,6 @@
 // sw.js – Service Worker chuẩn chỉnh cho PWA Nhật Ký Bii & Quìn
 
-const CACHE_NAME = 'bii-quin-cache-v2';
+const CACHE_NAME = 'bii-quin-cache-v4';
 const urlsToCache = [
   './',
   './manifest.json',
