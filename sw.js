@@ -1,36 +1,79 @@
-// sw.js – Service Worker chuẩn chỉnh cho PWA Nhật Ký Bii & Quìn
+// Cấu hình Firebase (giữ nguyên)
+const firebaseConfig = {
+  apiKey: "AIzaSyDdr-P9TR-PGOGfpUyvNu0h5pkblE9x5IM",
+  authDomain: "nhat-ky-lam-cot.firebaseapp.com",
+  projectId: "nhat-ky-lam-cot",
+  storageBucket: "nhat-ky-lam-cot.appspot.com",
+  messagingSenderId: "617668835076",
+  appId: "1:617668835076:web:c56006270e42a0955d8251"
+};
 
-const CACHE_NAME = 'bii-quin-cache-v4';
-const urlsToCache = [
-  './',
-  './manifest.json',
-  './icon.png' // ✅ Đúng tên file icon của m
-];
+// Khởi tạo Firebase
+firebase.initializeApp(firebaseConfig);
+const storage = firebase.storage();
+const db = firebase.firestore();
+const auth = firebase.auth();
 
-// Cài đặt service worker và cache các file
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
-  );
-  console.log('✅ Service Worker: Installed & cached');
-  self.skipWaiting(); // ⚡ Active ngay
-});
-// Kích hoạt và clear cache cũ
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    ))
-  );
-  console.log('⚡ Service Worker: Activated');
-  self.clients.claim(); // 🔁 Làm chủ client ngay
-});
+// ✅ Danh sách user được phép
+const ALLOWED_USERS = {
+  "kiencr1403@gmail.com": {
+    id: "bii",
+    name: "bii",
+    locketTarget: "quin" // Gửi locket cho quìn
+  },
+  "tranquynh13082008@gmail.com": {
+    id: "quin",
+    name: "quìn",
+    locketTarget: "bii" // Gửi locket cho bii
+  }
+};
 
-// Xử lý fetch
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request).catch(() => caches.match('./index.html'));
+// ✅ Hàm đăng nhập + nhận diện
+function loginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  
+  auth.signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      const userData = ALLOWED_USERS[user.email];
+      
+      if (!userData) {
+        auth.signOut();
+        throw new Error("❤️ App chỉ dành riêng cho bii và quìn thôi!");
+      }
+
+      // Lưu thông tin user vào localStorage
+      localStorage.setItem("currentUser", JSON.stringify({
+        id: userData.id,
+        name: userData.name,
+        email: user.email,
+        target: userData.locketTarget // ID người nhận locket
+      }));
+
+      // Hiển thị thông báo thành công
+      alert(`Chào ${userData.name}! Bạn đang gửi locket cho ${userData.locketTarget} ❤️`);
+      location.reload(); // Tải lại trang để áp dụng thay đổi
     })
-  );
-});
+    .catch((error) => {
+      alert(error.message);
+      console.error("Lỗi đăng nhập:", error);
+    });
+}
+
+// ✅ Tự động kiểm tra đăng nhập khi trang load
+function checkAuth() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  
+  if (user) {
+    console.log(`User hiện tại: ${user.name} (${user.email})`);
+    console.log(`Sẽ gửi locket cho: ${user.target}`);
+  } else {
+    loginWithGoogle(); // Chưa đăng nhập -> hiện popup
+  }
+}
+
+// Gọi hàm check khi trang load
+window.addEventListener("load", checkAuth);
+
+// Xuất các biến cần thiết
+export { auth, db, storage, loginWithGoogle };
