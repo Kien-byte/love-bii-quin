@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+nhét vào chỗ nào thằng ngu   <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -71,7 +71,7 @@
       transform: translateY(-5px);
       box-shadow: 0 12px 40px rgba(255, 105, 157, 0.3);
     }
-    
+   
     .counter-display {
       font-size: 1.8rem;
       color: var(--pink);
@@ -163,6 +163,16 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+     @keyframes fall {
+  0% {
+    transform: translateY(-50px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
     
     .memory-content h2 {
       color: var(--pink);
@@ -378,8 +388,6 @@
   <input type="text" id="captionInput" placeholder="Viết caption gửi người iu" style="margin-top: 8px; padding: 6px; width: 90%; border-radius: 8px; border: 1px solid var(--light-pink);"><br>
   <button class="memory-btn" onclick="uploadImage()" style="margin-top: 12px;">📤 Gửi ảnh cho người yêu</button>
 </div>
-
-  <input type="text" id="captionInput" placeholder="Viết caption gửi người iu" style="margin-top: 8px; padding: 6px; width: 90%; border-radius: 8px; border: 1px solid var(--light-pink);">
 </div>
 
 <!-- Nơi hiển thị ảnh -->
@@ -490,7 +498,14 @@
     
     setInterval(updateCounter, 1000);
     updateCounter();
+   </script>
 
+   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="firebase.js"></script>
+ <script>
     // Chuyển đổi giữa các kỷ niệm
     let isTransitioning = false;
     function changeMemory(id, bgUrl) {
@@ -587,7 +602,7 @@
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.top = '-50px';
         confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        confetti.style.animation = fall ${Math.random() * 3 + 2}s linear forwards;
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
         confetti.style.zIndex = '9999';
         document.body.appendChild(confetti);
         
@@ -622,7 +637,7 @@
         heart.remove();
       }, 3000);
     });
-    
+    <script>
     // Khởi tạo khi trang load
     window.onload = function() {
       changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg');
@@ -796,31 +811,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 </script>
- //Firebase Config & Khởi tạo
- // Firebase SDKs
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+ 
+
+
 <script>
  
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDdr-P9TR-PGOGfpUyvNu0h5pkblE9x5IM",
-  authDomain: "nhat-ky-lam-cot.firebaseapp.com",
-  projectId: "nhat-ky-lam-cot",
- storageBucket: "nhat-ky-lam-cot.appspot.com",
-  messagingSenderId: "617668835076",
-  appId: "1:617668835076:web:c56006270e42a0955d8251"
-};
 
-  firebase.initializeApp(firebaseConfig);
-  const storage = firebase.storage();
-  const db = firebase.firestore();
-
-
-    //AUTH
-   const auth = firebase.auth();
   auth.onAuthStateChanged((user) => {
     if (user) {
       const name = user.displayName || "Bạn yêu";
@@ -938,19 +934,5 @@ const firebaseConfig = {
       });
     });
 </script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => {
-          console.log('✅ SW registered: ', reg.scope);
-        })
-        .catch(err => {
-          console.error('❌ SW registration failed:', err);
-        });
-    });
-  }
-</script>
-
 </body>
 </html>
