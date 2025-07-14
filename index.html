@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+nhét vào chỗ nào thằng ngu   <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -370,6 +370,21 @@
       </div>
       <button class="memory-btn" onclick="showLoveLetter()" style="margin-top: 15px;">💌 Viết thư tình</button>
     </div>
+
+    <!-- Gửi ảnh cho người yêu -->
+<div style="text-align: center; margin-top: 20px;">
+ <div style="margin-top: 20px; text-align: center;">
+  <input type="file" id="imageInput" accept="image/*">
+  <input type="text" id="captionInput" placeholder="Viết caption gửi người iu" style="margin-top: 8px; padding: 6px; width: 90%; border-radius: 8px; border: 1px solid var(--light-pink);"><br>
+  <button class="memory-btn" onclick="uploadImage()" style="margin-top: 12px;">📤 Gửi ảnh cho người yêu</button>
+</div>
+
+  <input type="text" id="captionInput" placeholder="Viết caption gửi người iu" style="margin-top: 8px; padding: 6px; width: 90%; border-radius: 8px; border: 1px solid var(--light-pink);">
+</div>
+
+<!-- Nơi hiển thị ảnh -->
+<div id="photo-feed" style="margin-top: 20px; text-align: center;"></div>
+
     
     <div class="memory-buttons">
       <button class="memory-btn" onclick="changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg')">Khởi đầu</button>
@@ -464,9 +479,9 @@
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       
       document.getElementById("loveDays").innerText = days;
-      document.getElementById("detailedCounter").innerText = 
-        `${months} tháng · ${weeks} tuần · ${hours} giờ · ${minutes} phút · ${seconds} giây`;
-      
+   document.getElementById("detailedCounter").innerText = 
+  `${months} tháng · ${weeks} tuần · ${hours} giờ · ${minutes} phút · ${seconds} giây`;
+
       // Hiệu ứng confetti khi đến mốc đặc biệt
       if ([100, 200, 365].includes(days)) {
         createConfetti();
@@ -494,6 +509,7 @@
       
       document.body.style.transition = 'background-image 0.8s ease-in-out';
       document.body.style.backgroundImage = `url('${bgUrl}')`;
+
       
       createClickHearts();
       setTimeout(() => { isTransitioning = false; }, 800);
@@ -571,7 +587,7 @@
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.top = '-50px';
         confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.animation = fall ${Math.random() * 3 + 2}s linear forwards;
         confetti.style.zIndex = '9999';
         document.body.appendChild(confetti);
         
@@ -649,6 +665,7 @@ musicButton.addEventListener('click', () => {
    
   </script>
  <script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
   let player;
   function onYouTubeIframeAPIReady() {
@@ -693,23 +710,8 @@ musicButton.addEventListener('click', () => {
     });
   }
 </script>
-<!-- Locket - Chọn người dùng thôi, chưa có gì khác -->
-<!-- Popup chọn người dùng -->
-<div id="choose-user" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff8f9; display: none; align-items: center; justify-content: center; z-index: 10000;">
-  <div style="text-align: center;">
-    <p style="font-size: 18px; color: #cc3366;">Bạn là ai nè?</p>
-    <button onclick="setUser('bii')" style="margin: 8px; padding: 10px 20px; background: #ff6b8b; color: white; border: none; border-radius: 8px; cursor: pointer;">Bii 🐶</button>
-    <button onclick="setUser('quin')" style="margin: 8px; padding: 10px 20px; background: #ffb6c1; color: white; border: none; border-radius: 8px; cursor: pointer;">Quìn 🎀</button>
-  </div>
-</div>
 
 <script>
-  const user = localStorage.getItem("user");
-  if (!user) {
-    document.getElementById("choose-user").style.display = "flex";
-  } else {
-    document.getElementById("choose-user").style.display = "none";
-  }
 
   window.setUser = function (name) {
     localStorage.setItem("user", name);
@@ -717,7 +719,9 @@ musicButton.addEventListener('click', () => {
     document.getElementById("choose-user").style.display = "none";
   }
 
-  // Auto update PWA when there's new version
+
+
+  // Auto update PWA when there's new version//////////////////////
  if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').then((registration) => {
     registration.onupdatefound = () => {
@@ -731,7 +735,9 @@ musicButton.addEventListener('click', () => {
     };
   });
 
-  // Khi worker mới chiếm quyền xong thì reload
+
+
+  // Khi worker mới chiếm quyền xong thì reload///////////////////////
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     console.log("🔁 Worker mới chiếm quyền, reload web...");
     window.location.reload();
@@ -742,7 +748,7 @@ musicButton.addEventListener('click', () => {
   };
 });
 
-// Khi SW mới đã kích hoạt và chiếm quyền, thì reload trang
+// Khi SW mới đã kích hoạt và chiếm quyền, thì reload trang///////////////////////
 navigator.serviceWorker.addEventListener('controllerchange', () => {
   console.log("🔁 SW đã chiếm quyền, reload trang...");
   window.location.reload();
@@ -753,7 +759,10 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     });
   }
 
-// Hiển thị lời chào trên đếm ngày yêu (ổn định hơn)
+
+
+
+// Hiển thị lời chào trên đếm ngày yêu (ổn định hơn)///////////////////////
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     const currentUser = localStorage.getItem("user");
@@ -767,27 +776,167 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const greetingDiv = document.createElement("div");
     greetingDiv.id = "greeting";
-    greetingDiv.style.cssText = `
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--pink);
-      margin-bottom: 8px;
-    `;
+   greetingDiv.style.cssText = `
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--pink);
+  margin-bottom: 8px;
+`;
+
 
     if (currentUser === "bii") {
       greetingDiv.textContent = "Hế lô Bii 🐶";
     } else if (currentUser === "quin") {
       greetingDiv.textContent = "Hế lô Quìn 🎀";
     }
-
     const title = loveCounter.querySelector("h2");
     loveCounter.insertBefore(greetingDiv, title); // CHÈN TRÊN h2
   }, 100);
 });
 
-
 </script>
+ //Firebase Config & Khởi tạo
+ // Firebase SDKs
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+<script>
+ 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDdr-P9TR-PGOGfpUyvNu0h5pkblE9x5IM",
+  authDomain: "nhat-ky-lam-cot.firebaseapp.com",
+  projectId: "nhat-ky-lam-cot",
+ storageBucket: "nhat-ky-lam-cot.appspot.com",
+  messagingSenderId: "617668835076",
+  appId: "1:617668835076:web:c56006270e42a0955d8251"
+};
 
+  firebase.initializeApp(firebaseConfig);
+  const storage = firebase.storage();
+  const db = firebase.firestore();
+
+
+    //AUTH
+   const auth = firebase.auth();
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      const name = user.displayName || "Bạn yêu";
+
+      let greetingDiv = document.getElementById("greeting");
+      if (!greetingDiv) {
+        greetingDiv = document.createElement("div");
+        greetingDiv.id = "greeting";
+      }
+
+      greetingDiv.textContent = `Hế lô ${name} 🥰`;
+      greetingDiv.style.cssText = `
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--pink);
+        margin-bottom: 8px;
+      `;
+
+      const loveCounter = document.querySelector("#love-counter h2");
+      if (loveCounter && !document.getElementById("greeting")) {
+        loveCounter.parentElement.insertBefore(greetingDiv, loveCounter);
+      }
+    } else {
+      signIn();
+    }
+  });
+
+  function signIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+   auth.signInWithRedirect(provider).catch((error) => {
+      alert("Đăng nhập thất bại: " + error.message);
+    });
+  }
+ 
+
+  // Gửi ảnh
+    function uploadImage() {
+      const file = document.getElementById("imageInput").files[0];
+      const caption = document.getElementById("captionInput").value.trim();
+      if (!file) return alert("Chọn ảnh trước nha bae 😘");
+
+      const userId = auth.currentUser ? auth.currentUser.uid : "anonymous";
+      const fileRef = storage.ref().child(`photos/${userId}_${Date.now()}_${file.name}`);
+
+      fileRef.put(file).then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+          return db.collection("photos").add({
+            url,
+            caption,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        })
+        .then(() => {
+          alert("Ảnh đã gửi cho người yêu ❤️");
+          loadPhotos();
+          document.getElementById("captionInput").value = "";
+          document.getElementById("imageInput").value = "";
+        })
+        .catch(err => alert("Gửi ảnh fail: " + err.message));
+    }
+
+    function loadPhotos() {
+      const photoFeed = document.getElementById("photo-feed");
+      photoFeed.innerHTML = "Đang tải ảnh...";
+      db.collection("photos").orderBy("timestamp", "desc").get().then(snapshot => {
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          html += `
+            <div style="margin-bottom: 20px;">
+              <img src="${data.url}" style="max-width: 200px; margin: 10px; border-radius: 12px;" />
+              ${data.caption ? `<div style="font-style: italic; margin-top: 5px; color: #555;">${data.caption}</div>` : ""}
+            </div>
+          `;
+        });
+        photoFeed.innerHTML = html || "Chưa có ảnh nào được gửi 💔";
+      });
+    }
+
+     // Gửi cảm xúc
+    function sendEmotion() {
+      const content = document.getElementById("emotionInput").value.trim();
+      if (!content) return alert("Nhập cảm xúc trước đã nha!");
+
+      db.collection("emotions").add({
+        content,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert("Cảm xúc đã được gửi 💕");
+        document.getElementById("emotionInput").value = "";
+        loadEmotions();
+      }).catch(err => alert("Lỗi gửi cảm xúc: " + err.message));
+    }
+
+    function loadEmotions() {
+      const feed = document.getElementById("emotion-feed");
+      feed.innerHTML = "Đang tải cảm xúc...";
+      db.collection("emotions").orderBy("timestamp", "desc").get().then(snapshot => {
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          html += `<div style="margin-bottom: 10px; padding: 8px; border: 1px solid #ccc; border-radius: 8px; display: inline-block; max-width: 300px; background: #fdf1f5;">${data.content}</div>`;
+        });
+        feed.innerHTML = html || "Chưa có cảm xúc nào được gửi 💔";
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          loadPhotos();
+          loadEmotions();
+        }
+      });
+    });
+</script>
 </body>
 </html>
