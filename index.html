@@ -1,4 +1,4 @@
-nhét vào chỗ nào thằng ngu   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -637,7 +637,6 @@ nhét vào chỗ nào thằng ngu   <!DOCTYPE html>
         heart.remove();
       }, 3000);
     });
-    <script>
     // Khởi tạo khi trang load
     window.onload = function() {
       changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg');
@@ -728,12 +727,6 @@ musicButton.addEventListener('click', () => {
 
 <script>
 
-  window.setUser = function (name) {
-    localStorage.setItem("user", name);
-    localStorage.setItem("hasReloaded", "yes"); // Đánh dấu đã reload
-    document.getElementById("choose-user").style.display = "none";
-  }
-
 
 
   // Auto update PWA when there's new version//////////////////////
@@ -758,29 +751,17 @@ musicButton.addEventListener('click', () => {
     window.location.reload();
   });
 }
-      }
-    });
-  };
-});
+    
 
 // Khi SW mới đã kích hoạt và chiếm quyền, thì reload trang///////////////////////
 navigator.serviceWorker.addEventListener('controllerchange', () => {
   console.log("🔁 SW đã chiếm quyền, reload trang...");
   window.location.reload();
 });
-          }
-        };
-      };
-    });
-  }
-
-
-
-
 // Hiển thị lời chào trên đếm ngày yêu (ổn định hơn)///////////////////////
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
-    const currentUser = localStorage.getItem("user");
+   
     const loveCounter = document.getElementById("love-counter");
 
     if (!loveCounter) return;
@@ -799,7 +780,7 @@ document.addEventListener("DOMContentLoaded", () => {
   margin-bottom: 8px;
 `;
 
-
+const currentUser = localStorage.getItem("user");
     if (currentUser === "bii") {
       greetingDiv.textContent = "Hế lô Bii 🐶";
     } else if (currentUser === "quin") {
@@ -815,44 +796,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <script>
- 
-
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      const name = user.displayName || "Bạn yêu";
-
-      let greetingDiv = document.getElementById("greeting");
-      if (!greetingDiv) {
-        greetingDiv = document.createElement("div");
-        greetingDiv.id = "greeting";
-      }
-
-      greetingDiv.textContent = `Hế lô ${name} 🥰`;
-      greetingDiv.style.cssText = `
-        text-align: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: var(--pink);
-        margin-bottom: 8px;
-      `;
-
-      const loveCounter = document.querySelector("#love-counter h2");
-      if (loveCounter && !document.getElementById("greeting")) {
-        loveCounter.parentElement.insertBefore(greetingDiv, loveCounter);
-      }
-    } else {
-      signIn();
-    }
-  });
-
-  function signIn() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-   auth.signInWithRedirect(provider).catch((error) => {
-      alert("Đăng nhập thất bại: " + error.message);
-    });
-  }
- 
-
   // Gửi ảnh
     function uploadImage() {
       const file = document.getElementById("imageInput").files[0];
