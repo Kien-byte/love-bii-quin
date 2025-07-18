@@ -350,6 +350,36 @@
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+/* Hiệu ứng cho Locket */
+#latest-locket {
+  transition: all 0.3s ease;
+}
+
+#latest-locket:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 105, 157, 0.4);
+}
+
+@keyframes fadeInLocket {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#latest-locket-image {
+  animation: fadeInLocket 0.5s ease-out;
+}
+
+/* Responsive cho popup */
+@media (max-width: 600px) {
+  #all-lockets-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+#temp-login-btn:hover {
+  transform: translateY(-3px);
+  background: #ff4d8d;
+  transition: all 0.3s ease;
+}
   </style>
 </head>
 <body>
@@ -370,7 +400,22 @@
     <button class="memory-btn" onclick="sendLetter()">Gửi</button>
     <button class="memory-btn" onclick="document.getElementById('loveLetter').style.display='none'">Đóng</button>
   </div>
-
+  <!-- Nút đăng nhập tạm - đã sửa style -->
+  <div id="temp-login-btn" style="
+    position: fixed;
+    bottom: 80px;  /* Đặt cao hơn nút nhạc */
+    right: 20px;
+    z-index: 9999;
+    background: linear-gradient(135deg, var(--pink), #ff4d8d);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 157, 0.3);
+    font-weight: bold;
+  ">
+    🔑 Đăng nhập
+  </div>
   <div class="container">
    <div class="love-counter" id="love-counter">
       <h2>❤️ Hành trình của chúng ta ❤️</h2>
@@ -381,19 +426,117 @@
       <button class="memory-btn" onclick="showLoveLetter()" style="margin-top: 15px;">💌 Viết thư tình</button>
     </div>
 
-    <!-- Gửi ảnh cho người yêu -->
-<div style="text-align: center; margin-top: 20px;">
- <div style="margin-top: 20px; text-align: center;">
-  <input type="file" id="imageInput" accept="image/*">
-  <input type="text" id="captionInput" placeholder="Viết caption gửi người iu" style="margin-top: 8px; padding: 6px; width: 90%; border-radius: 8px; border: 1px solid var(--light-pink);"><br>
-  <button class="memory-btn" onclick="uploadImage()" style="margin-top: 12px;">📤 Gửi ảnh cho người yêu</button>
-</div>
+  <!-- ===== WIDGET LOCKET MỚI ===== -->
+<div id="locket-widget" style="
+  background: var(--glass);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 90%;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(255, 105, 157, 0.2);
+">
+  <!-- Khung hiển thị ảnh mới nhất -->
+  <div id="latest-locket" onclick="showAllLockets()" style="
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 2px dashed var(--pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.3);
+  ">
+    <div id="locket-placeholder" style="text-align: center;">
+      <div style="font-size: 3rem;">📷</div>
+      <div>Chưa có ảnh nào</div>
+    </div>
+    <img id="latest-locket-image" style="
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    ">
+    <div id="latest-locket-caption" style="
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 8px;
+      display: none;
+    "></div>
+  </div>
+
+  <!-- Phần upload ảnh mới -->
+  <input type="file" id="locket-file-input" accept="image/*" style="display: none;">
+  <button class="memory-btn" onclick="document.getElementById('locket-file-input').click()">
+    🌸 Chọn ảnh
+  </button>
+  
+  <textarea id="locket-caption" placeholder="Viết lời yêu thương..." style="
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--light-pink);
+    background: rgba(255, 255, 255, 0.7);
+    margin-bottom: 15px;
+    resize: none;
+    min-height: 60px;
+  "></textarea>
+  
+  <button class="memory-btn" id="locket-send-btn" style="
+    background: linear-gradient(135deg, #ff4d8d, var(--pink));
+    width: 80%;
+    padding: 12px;
+    font-size: 1.1rem;
+  ">
+    💌 Gửi Locket
+  </button>
 </div>
 
-<!-- Nơi hiển thị ảnh -->
-<div id="photo-feed" style="margin-top: 20px; text-align: center;"></div>
-
-    
+<!-- Popup hiển thị tất cả ảnh -->
+<div id="all-lockets-popup" style="
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+">
+  <button onclick="closeAllLockets()" style="
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: var(--pink);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+  ">×</button>
+  
+  <h2 style="color: white; text-align: center;">Tất cả Locket</h2>
+  <div id="all-lockets-container" style="
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  "></div>
+</div>
     <div class="memory-buttons">
       <button class="memory-btn" onclick="changeMemory('start', 'https://i.postimg.cc/23RNjWQb/WIN-20241126-17-30-01-Pro.jpg')">Khởi đầu</button>
       <button class="memory-btn" onclick="changeMemory('first-kiss', 'https://i.postimg.cc/XNgffWGF/998694b2-ed9f-4564-85ce-fd0147bc44a7.jpg')">Nụ hôn đầu</button>
@@ -791,91 +934,153 @@ const currentUser = localStorage.getItem("user");
   }, 100);
 });
 
-</script>
- 
+// ===== LOCKET FUNCTIONS =====
+async function displayLatestLocket() {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) return;
 
+  const snapshot = await db.collection("lockets")
+    .where("targetId", "==", user.id)
+    .orderBy("timestamp", "desc")
+    .limit(1)
+    .get();
 
-<script>
-  // Gửi ảnh
-    function uploadImage() {
-      const file = document.getElementById("imageInput").files[0];
-      const caption = document.getElementById("captionInput").value.trim();
-      if (!file) return alert("Chọn ảnh trước nha bae 😘");
+  const latestLocket = document.getElementById("latest-locket-image");
+  const placeholder = document.getElementById("locket-placeholder");
+  const caption = document.getElementById("latest-locket-caption");
 
-      const userId = auth.currentUser ? auth.currentUser.uid : "anonymous";
-      const fileRef = storage.ref().child(`photos/${userId}_${Date.now()}_${file.name}`);
+  if (snapshot.empty) {
+    latestLocket.style.display = "none";
+    caption.style.display = "none";
+    placeholder.style.display = "block";
+  } else {
+    const data = snapshot.docs[0].data();
+    latestLocket.src = data.imageUrl;
+    latestLocket.style.display = "block";
+    placeholder.style.display = "none";
+    
+    caption.textContent = data.caption || "❤️";
+    caption.style.display = "block";
+  }
+}
 
-      fileRef.put(file).then(snapshot => snapshot.ref.getDownloadURL())
-        .then(url => {
-          return db.collection("photos").add({
-            url,
-            caption,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        })
-        .then(() => {
-          alert("Ảnh đã gửi cho người yêu ❤️");
-          loadPhotos();
-          document.getElementById("captionInput").value = "";
-          document.getElementById("imageInput").value = "";
-        })
-        .catch(err => alert("Gửi ảnh fail: " + err.message));
-    }
+async function showAllLockets() {
+  const popup = document.getElementById("all-lockets-popup");
+  const container = document.getElementById("all-lockets-container");
+  
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) return;
 
-    function loadPhotos() {
-      const photoFeed = document.getElementById("photo-feed");
-      photoFeed.innerHTML = "Đang tải ảnh...";
-      db.collection("photos").orderBy("timestamp", "desc").get().then(snapshot => {
-        let html = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          html += `
-            <div style="margin-bottom: 20px;">
-              <img src="${data.url}" style="max-width: 200px; margin: 10px; border-radius: 12px;" />
-              ${data.caption ? `<div style="font-style: italic; margin-top: 5px; color: #555;">${data.caption}</div>` : ""}
-            </div>
-          `;
-        });
-        photoFeed.innerHTML = html || "Chưa có ảnh nào được gửi 💔";
-      });
-    }
+  container.innerHTML = "<p style='color: white; text-align: center;'>Đang tải...</p>";
+  popup.style.display = "block";
 
-     // Gửi cảm xúc
-    function sendEmotion() {
-      const content = document.getElementById("emotionInput").value.trim();
-      if (!content) return alert("Nhập cảm xúc trước đã nha!");
+  const snapshot = await db.collection("lockets")
+    .where("targetId", "==", user.id)
+    .orderBy("timestamp", "desc")
+    .get();
 
-      db.collection("emotions").add({
-        content,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        alert("Cảm xúc đã được gửi 💕");
-        document.getElementById("emotionInput").value = "";
-        loadEmotions();
-      }).catch(err => alert("Lỗi gửi cảm xúc: " + err.message));
-    }
+  container.innerHTML = "";
+  
+  if (snapshot.empty) {
+    container.innerHTML = "<p style='color: white; text-align: center;'>Chưa có ảnh nào</p>";
+    return;
+  }
 
-    function loadEmotions() {
-      const feed = document.getElementById("emotion-feed");
-      feed.innerHTML = "Đang tải cảm xúc...";
-      db.collection("emotions").orderBy("timestamp", "desc").get().then(snapshot => {
-        let html = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          html += `<div style="margin-bottom: 10px; padding: 8px; border: 1px solid #ccc; border-radius: 8px; display: inline-block; max-width: 300px; background: #fdf1f5;">${data.content}</div>`;
-        });
-        feed.innerHTML = html || "Chưa có cảm xúc nào được gửi 💔";
-      });
-    }
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const locketDiv = document.createElement("div");
+    locketDiv.innerHTML = `
+      <img src="${data.imageUrl}" style="
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid var(--pink);
+      ">
+      <p style="
+        color: white;
+        margin-top: 5px;
+        font-size: 0.9rem;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      ">${data.caption || "❤️"}</p>
+    `;
+    container.appendChild(locketDiv);
+  });
+}
 
-    document.addEventListener("DOMContentLoaded", () => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          loadPhotos();
-          loadEmotions();
-        }
-      });
+function closeAllLockets() {
+  document.getElementById("all-lockets-popup").style.display = "none";
+}
+
+// Cập nhật hàm uploadLocket
+async function uploadLocket() {
+  const fileInput = document.getElementById('locket-file-input');
+  const caption = document.getElementById('locket-caption').value.trim();
+  const btn = document.getElementById('locket-send-btn');
+
+  if (!fileInput.files[0]) {
+    alert('Vui lòng chọn ảnh!');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Đang gửi...';
+
+  try {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) throw new Error("Bạn chưa đăng nhập!");
+
+    // Upload ảnh
+    const fileName = `locket_${Date.now()}_${user.id}.jpg`;
+    const storageRef = storage.ref(`lockets/${fileName}`);
+    const snapshot = await storageRef.put(fileInput.files[0]);
+    const imageUrl = await snapshot.ref.getDownloadURL();
+
+    // Lưu vào Firestore
+    await db.collection("lockets").add({
+      senderId: user.id,
+      senderName: user.name,
+      targetId: user.target,
+      imageUrl: imageUrl,
+      caption: caption,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
+
+    alert('Đã gửi ảnh thành công ❤️');
+    fileInput.value = '';
+    document.getElementById('locket-caption').value = '';
+    displayLatestLocket(); // Cập nhật ngay lập tức
+  } catch (error) {
+    alert('Lỗi: ' + error.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💌 Gửi Locket';
+  }
+}
+
+// Gắn sự kiện cho nút gửi
+document.getElementById('locket-send-btn').addEventListener('click', uploadLocket);
+
+// Xử lý khi chọn ảnh (chỉ hiển thị thông báo)
+document.getElementById('locket-file-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    alert('Ảnh đã chọn! Nhấn "Gửi Locket" để chia sẻ ngay ❤️');
+  };
+  reader.readAsDataURL(file);
+});
+
+// Khởi tạo khi load trang
+window.addEventListener("load", () => {
+  displayLatestLocket();
+  setInterval(displayLatestLocket, 1800000); // Cập nhật mỗi 30 phút
+});
 </script>
 </body>
 </html>
